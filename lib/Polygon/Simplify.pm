@@ -69,7 +69,20 @@ sub getSqSegDist {
 	my $dy = $p2->{y} - $y;
 
 	if($dx != 0 || $dy != 0 ) {
-		my $t = (($p->{x} - $x) * $dx + ($p->{y} - $y) * $dy) / ($dx * $dx + $dy * $dy);
+
+		my $first_block = Math::BigFloat->new($p->{x} - $x);
+		my $second_block = Math::BigFloat->new($p->{y} - $y);
+		
+		my $first_multiply = $first_block->bmul($dx); 
+		my $second_multiply = $second_block->bmul($dy);
+		
+		my $top = $first_multiply->badd($second_multiply);
+		my $dx_square = Math::BigFloat->new($dx)->bmul($dx);
+		my $dy_square = Math::BigFloat->new($dy)->bmul($dy);
+		my $bottom = $dx_square->badd($dy_square);
+	#	my $t = (($p->{x} - $x) * $dx + ($p->{y} - $y) * $dy) / ($dx * $dx + $dy * $dy);
+
+		my $t = $top->bdiv($bottom)->bstr();
 
 		if($t > 1) {
 			$x = $p2->{x};
