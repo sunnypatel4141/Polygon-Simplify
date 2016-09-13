@@ -20,6 +20,8 @@ our $VERSION = '0.01';
 
 =head1 SYNOPSIS
 
+WARNING =>>>>>> EXPERIMENTAL RELEASE  <<<<<<<=
+
 	use Poygon::Simplify;
 
 	# Raw points requiring simplification

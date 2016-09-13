@@ -5,6 +5,7 @@ use warnings;
 
 use lib 'lib/';
 
+use Test::More;
 use Polygon::Simplify;
 
 my $points = [
@@ -58,26 +59,8 @@ print "Expected simplified points are " . scalar @$simplified . "\n";
 
 print "Finished\n";
 
-=cut
-my $simplify = require('../simplify'),
-    t = require('tape');
+ok (ref $cleaned_points->[0] eq 'HASH', "Cleaned Points are retunred in hash");
+ok (scalar @$cleaned_points eq 9, "Points Cleaned OK");
 
-t('simplifies points correctly with the given tolerance', function (t) {
-    var result = simplify(points, 5);
-    t.same(result, simplified);
-    t.end();
-});
+done_testing();
 
-t('just return the points if it has only one point', function(t){
-    var result = simplify([{x => 1, y => 2}]);
-    t.same(result, [{x => 1, y => 2}]);
-    t.end();
-});
-
-t('just return the points if it has no points', function(t){
-    var result = simplify([]);
-    t.same(result, []);
-    t.end();
-});
-
-=cut
